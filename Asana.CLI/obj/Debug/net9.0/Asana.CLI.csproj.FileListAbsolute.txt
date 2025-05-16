@@ -1,0 +1,14 @@
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/bin/Debug/net9.0/Asana.CLI
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/bin/Debug/net9.0/Asana.CLI.deps.json
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/bin/Debug/net9.0/Asana.CLI.runtimeconfig.json
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/bin/Debug/net9.0/Asana.CLI.dll
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/bin/Debug/net9.0/Asana.CLI.pdb
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.GeneratedMSBuildEditorConfig.editorconfig
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.AssemblyInfoInputs.cache
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.AssemblyInfo.cs
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.csproj.CoreCompileInputs.cache
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.dll
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/refint/Asana.CLI.dll
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.pdb
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.genruntimeconfig.cache
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/ref/Asana.CLI.dll
