@@ -7,14 +7,30 @@
   "targets": {
     ".NETCoreApp,Version=v9.0": {
       "Asana.CLI/1.0.0": {
+        "dependencies": {
+          "Asana.Library": "1.0.0"
+        },
         "runtime": {
           "Asana.CLI.dll": {}
+        }
+      },
+      "Asana.Library/1.0.0": {
+        "runtime": {
+          "Asana.Library.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
   },
   "libraries": {
     "Asana.CLI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Asana.Library/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -12,3 +12,8 @@
 /Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.pdb
 /Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.genruntimeconfig.cache
 /Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/ref/Asana.CLI.dll
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/bin/Debug/net9.0/Asana.Library.dll
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/bin/Debug/net9.0/Asana.Library.pdb
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.csproj.AssemblyReference.cache
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.sourcelink.json
+/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.CLI/obj/Debug/net9.0/Asana.CLI.csproj.Up2Date
