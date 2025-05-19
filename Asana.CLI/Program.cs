@@ -7,7 +7,7 @@ namespace Asana
         static void Main(string[] args)
         {
             var toDos = new List<ToDo>();
-            var choice = 0;
+            var choice = "";
 
             do {
 
@@ -15,11 +15,11 @@ namespace Asana
                 Console.WriteLine("1. Create a ToDo");
                 Console.WriteLine("2. Exit");
 
-                choice = int.Parse(Console.ReadLine() ?? "2");
+                choice = Console.ReadLine() ?? "2";
 
                 switch (choice)
                 {
-                    case 1:
+                    case "1":
                         Console.Write("Name: ");
                         var name = Console.ReadLine();
 
@@ -34,18 +34,25 @@ namespace Asana
 
                         toDos.Add(toDo);
                         break;
-                    case 2:
+                    case "2":
                         break;
                     default:
                         Console.WriteLine("ERROR: Invalid choice.");
                         break;
                 }
-            } while (choice != 2);
+            } while (choice != "2");
 
-            Console.WriteLine($"ToDo List:");
-            foreach (var item in toDos)
+            if (toDos.Any())
             {
-                Console.WriteLine(item);
+                Console.WriteLine("ToDo List:");
+                foreach (var item in toDos)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No ToDos created.");
             }
         }
     }
