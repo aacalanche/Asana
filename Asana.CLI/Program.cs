@@ -7,13 +7,22 @@ namespace Asana
         static void Main(string[] args)
         {
             var toDos = new List<ToDo>();
+            var projects = new List<Project>();            
             var choice = "";
 
             do {
 
                 Console.WriteLine("Choose a menu option:");
                 Console.WriteLine("1. Create a ToDo");
-                Console.WriteLine("2. Exit");
+                Console.WriteLine("2. Delete a ToDo");
+                Console.WriteLine("3. Update a ToDo");
+                Console.WriteLine("4. List all ToDos");
+                Console.WriteLine("5. Create a Project");
+                Console.WriteLine("6. Delete a Project");
+                Console.WriteLine("7. Update a Project");
+                Console.WriteLine("8. List all Projects");
+                Console.WriteLine("9. List all ToDos in a Project");
+                Console.WriteLine("10. Exit");
 
                 choice = Console.ReadLine() ?? "2";
 
@@ -34,26 +43,24 @@ namespace Asana
 
                         toDos.Add(toDo);
                         break;
-                    case "2":
+                    case "4":
+                        if (toDos.Any())
+                        {
+                            Console.WriteLine("ToDo List:");
+                            toDos.ForEach(Console.WriteLine);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No ToDos created.");
+                        }
+                        break;
+                    case "10":
                         break;
                     default:
                         Console.WriteLine("ERROR: Invalid choice.");
                         break;
                 }
-            } while (choice != "2");
-
-            if (toDos.Any())
-            {
-                Console.WriteLine("ToDo List:");
-                foreach (var item in toDos)
-                {
-                    Console.WriteLine(item);
-                }
-            }
-            else
-            {
-                Console.WriteLine("No ToDos created.");
-            }
+            } while (choice != "10");
         }
     }
 }
