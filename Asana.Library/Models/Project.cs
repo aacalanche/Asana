@@ -4,7 +4,7 @@ namespace Asana.Library.Models
 {
     public class Project
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public int? CompletePercent { get; set; }
@@ -12,7 +12,9 @@ namespace Asana.Library.Models
 
         public override string ToString()
         {
-            return $"{Id}. {Name}: {Description}";
+            return $"[{Id}] {Name}: {Description}\n" +
+                   $"    ({CompletePercent}% Completed" +
+                   $", {ToDos.Count} ToDos";
         }
     }
 }
