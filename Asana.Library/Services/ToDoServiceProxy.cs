@@ -1,12 +1,15 @@
 //Arturo Calanche
+//Project: Asana CLI Application
 
 using System;
 using Asana.Library.Models;
 
 namespace Asana.Library.Services
 {
+    //Class to encapsulate ToDo methods
     public class ToDoServiceProxy
     {
+        //List to hold all ToDo items
         public List<ToDo> ToDos;
 
         private ToDoServiceProxy()
@@ -14,10 +17,12 @@ namespace Asana.Library.Services
             ToDos = new List<ToDo>();
         }
 
+        //Auto assign an incrementing ID to each new ToDo
         private int NextId => ToDos.Count > 0 ? ToDos.Max(t => t.Id) + 1 : 1;
 
         private static ToDoServiceProxy? instance;
 
+        //Singleton pattern to ensure only one instance of ToDoServiceProxy exists
         public static ToDoServiceProxy Current
         {
             get
@@ -30,15 +35,18 @@ namespace Asana.Library.Services
             }
         }
 
+        //Method to create a new ToDo
         public void CreateToDo(ToDo toDo)
         {
             if (toDo.Id == 0)
             {
+                //Auto assign a unique ID to the ToDo and add it to the list
                 toDo.Id = NextId;
                 ToDos.Add(toDo);
                 Console.WriteLine("ToDo created.");
                 if (toDo.ProjId.HasValue)
                 {
+                    //If the ToDo is associated with a project, add it to that project's ToDos
                     var project = ProjectServiceProxy.Current.Projects
                         .FirstOrDefault(p => p.Id == toDo.ProjId.Value);
                     if (project != null)
@@ -50,6 +58,7 @@ namespace Asana.Library.Services
 
         }
 
+        //Method to delete a ToDo by ID
         public void DeleteToDo()
         {
             Console.Write("Enter ID of ToDo to delete: ");
@@ -58,7 +67,10 @@ namespace Asana.Library.Services
                 var toDoToDelete = ToDos.FirstOrDefault(t => t.Id == idToDelete);
                 if (toDoToDelete != null)
                 {
+                    //Remove the ToDo from the list
                     ToDos.Remove(toDoToDelete);
+
+                    //Remove ToDo from its associated project if it exists
                     if (toDoToDelete.ProjId.HasValue)
                     {
                         var project = ProjectServiceProxy.Current.Projects
@@ -81,6 +93,7 @@ namespace Asana.Library.Services
             }
         }
 
+        //Method to update an existing ToDo
         public void UpdateToDo()
         {
             Console.Write("Enter ID of ToDo to update: ");
@@ -89,6 +102,7 @@ namespace Asana.Library.Services
                 var toDoToUpdate = ToDos.FirstOrDefault(t => t.Id == idToUpdate);
                 if (toDoToUpdate != null)
                 {
+                    //Rename if the user wants to
                     Console.WriteLine("Rename? (y/n): ");
                     if (Console.ReadLine()?.Trim().ToLower() == "y")
                     {
@@ -106,12 +120,14 @@ namespace Asana.Library.Services
                         toDoToUpdate.Priority = priority;
                     }
 
+                    //Update completion status
                     Console.Write("Is it Completed? (y/n): ");
                     var isCompleted = Console.ReadLine()?.Trim().ToLower() == "y";
                     toDoToUpdate.IsCompleted = isCompleted;
 
                     if (toDoToUpdate.ProjId.HasValue)
                     {
+                        //If the ToDo is associated with a project, update it in that project's ToDos
                         var project = ProjectServiceProxy.Current.Projects
                             .FirstOrDefault(p => p.Id == toDoToUpdate.ProjId);
                         if (project != null)
@@ -139,6 +155,7 @@ namespace Asana.Library.Services
             }
         }
 
+        //Method to list all ToDos
         public void ListAllToDos()
         {
             if (ToDos.Any())

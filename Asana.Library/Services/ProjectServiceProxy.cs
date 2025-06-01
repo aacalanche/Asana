@@ -1,10 +1,15 @@
+//Arturo Calanche
+//Project: Asana CLI Application
+
 using System;
 using Asana.Library.Models;
 
 namespace Asana.Library.Services
 {
+    //Class to encapsulate Project methods
     public class ProjectServiceProxy
     {
+        //List to hold all Project items
         public List<Project> Projects;
 
         private ProjectServiceProxy()
@@ -12,10 +17,12 @@ namespace Asana.Library.Services
             Projects = new List<Project>();
         }
 
+        //Auto assign an incrementing ID to each new Project
         private int NextId => Projects.Count > 0 ? Projects.Max(p => p.Id) + 1 : 1;
 
         private static ProjectServiceProxy? instance;
 
+        //Singleton pattern to ensure only one instance of ProjectServiceProxy exists
         public static ProjectServiceProxy Current
         {
             get
@@ -28,6 +35,7 @@ namespace Asana.Library.Services
             }
         }
 
+        //Method to create a new Project
         public void CreateProject(Project project)
         {
             if (project.Id == 0)
@@ -39,6 +47,7 @@ namespace Asana.Library.Services
             }
         }
 
+        //Method to delete a Project by ID
         public void DeleteProject()
         {
             Console.Write("Enter ID of Project to delete: ");
@@ -48,11 +57,12 @@ namespace Asana.Library.Services
                 if (projectToDelete != null)
                 {
                     Projects.Remove(projectToDelete);
-                    // Also remove all ToDos associated with this project
-                    var toDoService = ToDoServiceProxy.Current;
-                    toDoService.ToDos.RemoveAll(t => t.ProjId == idToDelete);
-                    Console.WriteLine("All ToDos associated with this project have been removed.");
+
+                    //Delete all ToDos associated with this project
+                    var toDoSvc = ToDoServiceProxy.Current;
+                    toDoSvc.ToDos.RemoveAll(t => t.ProjId == idToDelete);
                     Console.WriteLine("Project deleted.");
+                    Console.WriteLine("All ToDos associated with this project deleted.");
                 }
                 else
                 {
@@ -65,6 +75,7 @@ namespace Asana.Library.Services
             }
         }
 
+        //Method to update an existing Project
         public void UpdateProject()
         {
             Console.Write("Enter ID of Project to update: ");
@@ -77,7 +88,7 @@ namespace Asana.Library.Services
                     projectToUpdate.Name = Console.ReadLine();
 
                     Console.Write("Description: ");
-                    projectToUpdate.Description = Console.ReadLine();                    
+                    projectToUpdate.Description = Console.ReadLine();
 
                     Console.WriteLine("Project updated.");
                 }
@@ -91,6 +102,8 @@ namespace Asana.Library.Services
                 Console.WriteLine("Invalid ID format.");
             }
         }
+
+        //Method to list all Projects
         public void ListAllProjects()
         {
             if (Projects.Any())
@@ -104,6 +117,7 @@ namespace Asana.Library.Services
             }
         }
 
+        //Method to list all ToDos in a specific Project
         public void ListAllToDosInProject()
         {
             Console.Write("Enter Project ID: ");
