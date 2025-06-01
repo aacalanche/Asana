@@ -1,3 +1,5 @@
+//Arturo Calanche
+
 using System;
 using Asana.Library.Models;
 
@@ -34,20 +36,38 @@ namespace Asana.Library.Services
             {
                 toDo.Id = NextId;
                 ToDos.Add(toDo);
-                Console.WriteLine($"ToDo created");
+                Console.WriteLine("ToDo created.");
+                if (toDo.ProjId.HasValue)
+                {
+                    var project = ProjectServiceProxy.Current.Projects
+                        .FirstOrDefault(p => p.Id == toDo.ProjId.Value);
+                    if (project != null)
+                    {
+                        project.ToDos.Add(toDo);
+                    }
+                }
             }
 
         }
 
         public void DeleteToDo()
         {
-            Console.Write("Enter ToDo ID to delete: ");
+            Console.Write("Enter ID of ToDo to delete: ");
             if (int.TryParse(Console.ReadLine(), out var idToDelete))
             {
                 var toDoToDelete = ToDos.FirstOrDefault(t => t.Id == idToDelete);
                 if (toDoToDelete != null)
                 {
                     ToDos.Remove(toDoToDelete);
+                    if (toDoToDelete.ProjId.HasValue)
+                    {
+                        var project = ProjectServiceProxy.Current.Projects
+                            .FirstOrDefault(p => p.Id == toDoToDelete.ProjId.Value);
+                        if (project != null)
+                        {
+                            project.ToDos.Remove(toDoToDelete);
+                        }
+                    }
                     Console.WriteLine("ToDo deleted.");
                 }
                 else
@@ -69,31 +89,43 @@ namespace Asana.Library.Services
                 var toDoToUpdate = ToDos.FirstOrDefault(t => t.Id == idToUpdate);
                 if (toDoToUpdate != null)
                 {
-                    Console.WriteLine($"Rename? (y/n): ");
-                    var rename = Console.ReadLine()?.Trim().ToLower() == "y";
-                    if (rename)
+                    Console.WriteLine("Rename? (y/n): ");
+                    if (Console.ReadLine()?.Trim().ToLower() == "y")
                     {
                         Console.Write("Name: ");
-                        toDoToUpdate.Name = Console.ReadLine();
+                        var name = Console.ReadLine();
+                        toDoToUpdate.Name = name;
 
                         Console.Write("Description: ");
-                        toDoToUpdate.Description = Console.ReadLine();
+                        var description = Console.ReadLine();
+                        toDoToUpdate.Description = description;
                         Console.WriteLine("Name and description updated.");
+
+                        Console.Write("Priority: ");
+                        var priority = Console.ReadLine();
+                        toDoToUpdate.Priority = priority;
                     }
 
                     Console.Write("Is it Completed? (y/n): ");
-                    if (Console.ReadLine()?.Trim().ToLower() == "y")
-                    {
-                        toDoToUpdate.IsCompleted = true;
-                    }
-                    else
-                    {
-                        toDoToUpdate.IsCompleted = false;
-                    }
+                    var isCompleted = Console.ReadLine()?.Trim().ToLower() == "y";
+                    toDoToUpdate.IsCompleted = isCompleted;
 
-                    Console.Write("Priority: ");
-                    toDoToUpdate.Priority = Console.ReadLine();
-
+                    if (toDoToUpdate.ProjId.HasValue)
+                    {
+                        var project = ProjectServiceProxy.Current.Projects
+                            .FirstOrDefault(p => p.Id == toDoToUpdate.ProjId);
+                        if (project != null)
+                        {
+                            var existingToDo = project.ToDos.FirstOrDefault(t => t.Id == toDoToUpdate.Id);
+                            if (existingToDo != null)
+                            {
+                                existingToDo.Name = toDoToUpdate.Name;
+                                existingToDo.Description = toDoToUpdate.Description;
+                                existingToDo.Priority = toDoToUpdate.Priority;
+                                existingToDo.IsCompleted = toDoToUpdate.IsCompleted;
+                            }
+                        }
+                    }
                     Console.WriteLine("ToDo updated.");
                 }
                 else
