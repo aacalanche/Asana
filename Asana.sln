@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asana.CLI", "Asana.CLI\Asan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asana.Library", "Asana.Library\Asana.Library.csproj", "{D8B24A27-FCDB-44D4-AEFD-5E474C080B1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asana.Maui", "Asana.Maui\Asana.Maui.csproj", "{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{D8B24A27-FCDB-44D4-AEFD-5E474C080B1F}.Release|x64.Build.0 = Release|Any CPU
 		{D8B24A27-FCDB-44D4-AEFD-5E474C080B1F}.Release|x86.ActiveCfg = Release|Any CPU
 		{D8B24A27-FCDB-44D4-AEFD-5E474C080B1F}.Release|x86.Build.0 = Release|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Debug|x64.Build.0 = Debug|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Debug|x86.Build.0 = Debug|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Release|x64.ActiveCfg = Release|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Release|x64.Build.0 = Release|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Release|x86.ActiveCfg = Release|Any CPU
+		{BEE4E9A4-A11C-4DF6-A0FB-163225407C43}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
