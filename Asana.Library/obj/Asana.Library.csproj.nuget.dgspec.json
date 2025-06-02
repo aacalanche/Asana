@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.Library/Asana.Library.csproj": {}
+    "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/Asana/Asana.Library/Asana.Library.csproj": {}
   },
   "projects": {
-    "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.Library/Asana.Library.csproj": {
+    "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/Asana/Asana.Library/Asana.Library.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.Library/Asana.Library.csproj",
+        "projectUniqueName": "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/Asana/Asana.Library/Asana.Library.csproj",
         "projectName": "Asana.Library",
-        "projectPath": "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.Library/Asana.Library.csproj",
+        "projectPath": "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/Asana/Asana.Library/Asana.Library.csproj",
         "packagesPath": "/Users/Aacro/.nuget/packages/",
-        "outputPath": "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/FirstProject/Asana.Library/obj/",
+        "outputPath": "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/Asana/Asana.Library/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/Aacro/.nuget/NuGet/NuGet.Config"
