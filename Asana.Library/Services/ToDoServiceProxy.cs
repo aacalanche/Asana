@@ -10,11 +10,16 @@ namespace Asana.Library.Services
     public class ToDoServiceProxy
     {
         //List to hold all ToDo items
-        public List<ToDo> ToDos;
+        public List<ToDo> ToDos {get; private set;}
 
         private ToDoServiceProxy()
         {
-            ToDos = new List<ToDo>();
+            ToDos = new List<ToDo>
+            {
+                //Sample ToDos for demonstration purposes
+                new ToDo { Id = 1, Name = "Sample ToDo 1", Description = "This is a sample ToDo", Priority = "High", IsCompleted = false },
+                new ToDo { Id = 2, Name = "Sample ToDo 2", Description = "This is another sample ToDo", Priority = "Medium", IsCompleted = true }
+            };
         }
 
         //Auto assign an incrementing ID to each new ToDo
