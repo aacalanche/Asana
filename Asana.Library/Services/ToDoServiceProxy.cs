@@ -10,20 +10,45 @@ namespace Asana.Library.Services
     public class ToDoServiceProxy
     {
         //List to hold all ToDo items
-        public List<ToDo> ToDos {get; private set;}
+        private List<ToDo> _toDoList;
+        public List<ToDo> ToDos { 
+            get
+            {
+                return _toDoList.Take(100).ToList();
+            }
+
+            private set {
+                if (value != _toDoList)
+                {
+                    _toDoList = value;
+                }
+            }
+        }
 
         private ToDoServiceProxy()
         {
             ToDos = new List<ToDo>
             {
-                //Sample ToDos for demonstration purposes
-                new ToDo { Id = 1, Name = "Sample ToDo 1", Description = "This is a sample ToDo", Priority = "High", IsCompleted = false },
-                new ToDo { Id = 2, Name = "Sample ToDo 2", Description = "This is another sample ToDo", Priority = "Medium", IsCompleted = true }
+                new ToDo{Id = 1, Name = "Task 1", Description = "My Task 1", IsCompleted=true},
+                new ToDo{Id = 2, Name = "Task 2", Description = "My Task 2", IsCompleted=false },
+                new ToDo{Id = 3, Name = "Task 3", Description = "My Task 3", IsCompleted=true },
+                new ToDo{Id = 4, Name = "Task 4", Description = "My Task 4", IsCompleted=false },
+                new ToDo{Id = 5, Name = "Task 5", Description = "My Task 5", IsCompleted=true }
             };
         }
 
         //Auto assign an incrementing ID to each new ToDo
-        private int NextId => ToDos.Count > 0 ? ToDos.Max(t => t.Id) + 1 : 1;
+        private int NextId
+        {
+            get
+            {
+                if(ToDos.Any())
+                {
+                    return ToDos.Select(t => t.Id).Max() + 1;
+                }
+                return 1;
+            }
+        }
 
         private static ToDoServiceProxy? instance;
 
@@ -37,6 +62,15 @@ namespace Asana.Library.Services
                     instance = new ToDoServiceProxy();
                 }
                 return instance;
+            }
+        }
+
+        public void AddOrUpdate(ToDo? toDo)
+        {
+            if(toDo != null && toDo.Id == 0)
+            {
+                toDo.Id = NextId;
+                _toDoList.Add(toDo);
             }
         }
 
@@ -61,6 +95,15 @@ namespace Asana.Library.Services
                 }
             }
 
+        }
+
+        public void DeleteToDo(ToDo? toDo)
+        {
+            if (toDo == null)
+            {
+                return;
+            }
+            ToDos.Remove(toDo);
         }
 
         //Method to delete a ToDo by ID
@@ -118,11 +161,7 @@ namespace Asana.Library.Services
                         Console.Write("Description: ");
                         var description = Console.ReadLine();
                         toDoToUpdate.Description = description;
-                        Console.WriteLine("Name and description updated.");
-
-                        Console.Write("Priority: ");
-                        var priority = Console.ReadLine();
-                        toDoToUpdate.Priority = priority;
+                        Console.WriteLine("Name and description updated.");                        
                     }
 
                     //Update completion status
