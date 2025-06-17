@@ -1,4 +1,5 @@
-using Asana.Library.Models;
+
+﻿using Asana.Library.Models;
 using Asana.Library.Services;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,12 @@ namespace Asana.Maui.ViewModels
         public ToDoDetailViewModel() {
             Model = new ToDo();
         }
+
+        public ToDoDetailViewModel(int id)
+        {
+            Model = ToDoServiceProxy.Current.GetById(id) ?? new ToDo();
+        }
+
         public ToDo? Model { get ; set; }
 
         public List<int> Priorities
@@ -54,7 +61,7 @@ namespace Asana.Maui.ViewModels
 
                 if (!int.TryParse(value, out int p))
                 {
-                    Model.Priority = 0;
+                    Model.Priority = -9999;
                 }
                 else
                 {

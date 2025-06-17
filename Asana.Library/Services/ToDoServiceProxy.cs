@@ -38,7 +38,7 @@ namespace Asana.Library.Services
         }
 
         //Auto assign an incrementing ID to each new ToDo
-        private int NextId
+        private int nextKey
         {
             get
             {
@@ -65,36 +65,34 @@ namespace Asana.Library.Services
             }
         }
 
-        public void AddOrUpdate(ToDo? toDo)
+        public ToDo? AddOrUpdate(ToDo? toDo)
         {
             if(toDo != null && toDo.Id == 0)
             {
-                toDo.Id = NextId;
+                toDo.Id = nextKey;
                 _toDoList.Add(toDo);
+            }
+
+            return toDo;
+        }
+
+        public void DisplayToDos(bool isShowCompleted = false)
+        {
+            if (isShowCompleted)
+            {
+                ToDos.ForEach(Console.WriteLine);
+            }
+            else
+            {
+                ToDos.Where(t => (t != null) && !(t?.IsCompleted ?? false))
+                                .ToList()
+                                .ForEach(Console.WriteLine);
             }
         }
 
-        //Method to create a new ToDo
-        public void CreateToDo(ToDo toDo)
+        public ToDo? GetById(int id)
         {
-            if (toDo.Id == 0)
-            {
-                //Auto assign a unique ID to the ToDo and add it to the list
-                toDo.Id = NextId;
-                ToDos.Add(toDo);
-                Console.WriteLine("ToDo created.");
-                if (toDo.ProjId.HasValue)
-                {
-                    //If the ToDo is associated with a project, add it to that project's ToDos
-                    var project = ProjectServiceProxy.Current.Projects
-                        .FirstOrDefault(p => p.Id == toDo.ProjId.Value);
-                    if (project != null)
-                    {
-                        project.ToDos.Add(toDo);
-                    }
-                }
-            }
-
+            return ToDos.FirstOrDefault(t => t.Id == id);
         }
 
         public void DeleteToDo(ToDo? toDo)
@@ -103,7 +101,7 @@ namespace Asana.Library.Services
             {
                 return;
             }
-            ToDos.Remove(toDo);
+            _toDoList.Remove(toDo);
         }
 
         //Method to delete a ToDo by ID
