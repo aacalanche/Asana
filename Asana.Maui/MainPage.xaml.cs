@@ -1,5 +1,5 @@
 ﻿
-﻿using Asana.Maui.ViewModels;
+using Asana.Maui.ViewModels;
 
 namespace Asana.Maui
 {
