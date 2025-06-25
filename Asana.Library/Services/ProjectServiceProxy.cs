@@ -9,8 +9,22 @@ namespace Asana.Library.Services
     //Class to encapsulate Project methods
     public class ProjectServiceProxy
     {
-        //List to hold all Project items
-        public List<Project> Projects;
+        private List<Project> _projectList;
+        public List<Project> Projects
+        {
+            get
+            {
+                //Return only the first 100 projects for performance
+                return _projectList.Take(100).ToList();
+            }
+            private set
+            {
+                if (value != _projectList)
+                {
+                    _projectList = value;
+                }
+            }
+        }
 
         private ProjectServiceProxy()
         {
@@ -18,7 +32,17 @@ namespace Asana.Library.Services
         }
 
         //Auto assign an incrementing ID to each new Project
-        private int NextId => Projects.Count > 0 ? Projects.Max(p => p.Id) + 1 : 1;
+        private int nextKey
+        {
+            get
+            {
+                if (Projects.Any())
+                {
+                    return Projects.Select(t => t.Id).Max() + 1;
+                }
+                return 1;
+            }
+        }
 
         private static ProjectServiceProxy? instance;
 
@@ -35,117 +59,52 @@ namespace Asana.Library.Services
             }
         }
 
-        //Method to create a new Project
-        public void CreateProject(Project project)
+        //Method to create or update a Project
+        public Project? AddOrUpdate(Project? project)
         {
-            if (project.Id == 0)
+            if (project != null && project.Id == 0)
             {
-                project.Id = NextId;
-                Projects.Add(project);
-                Console.WriteLine("Project created.");
-                project.ToDos = new List<ToDo>();
+                project.Id = nextKey;
+                _projectList.Add(project);
             }
+
+            return project;
         }
 
         //Method to delete a Project by ID
-        public void DeleteProject()
+        public void DisplayProjects()
         {
-            Console.Write("Enter ID of Project to delete: ");
-            if (int.TryParse(Console.ReadLine(), out var idToDelete))
-            {
-                var projectToDelete = Projects.FirstOrDefault(p => p.Id == idToDelete);
-                if (projectToDelete != null)
-                {
-                    Projects.Remove(projectToDelete);
+            Projects.ForEach(Console.WriteLine);
+        }
 
-                    //Delete all ToDos associated with this project
-                    var toDoSvc = ToDoServiceProxy.Current;
-                    toDoSvc.ToDos.RemoveAll(t => t.ProjId == idToDelete);
-                    Console.WriteLine("Project deleted.");
-                    Console.WriteLine("All ToDos associated with this project deleted.");
-                }
-                else
-                {
-                    Console.WriteLine("Project not found.");
-                }
+        public void DisplayToDosInProject(bool isShowCompleted = false)
+        {
+            if (isShowCompleted)
+            {
+                Projects.SelectMany(p => p.ToDos ?? new List<ToDo>())
+                        .ToList()
+                        .ForEach(Console.WriteLine);
             }
             else
             {
-                Console.WriteLine("Invalid ID format.");
+                Projects.SelectMany(p => p.ToDos ?? new List<ToDo>())
+                        .Where(t => (t != null) && !(t?.IsCompleted ?? false))
+                        .ToList()
+                        .ForEach(Console.WriteLine);
             }
         }
 
-        //Method to update an existing Project
-        public void UpdateProject()
+        public Project? GetById(int id)
         {
-            Console.Write("Enter ID of Project to update: ");
-            if (int.TryParse(Console.ReadLine(), out var idToUpdate))
-            {
-                var projectToUpdate = Projects.FirstOrDefault(p => p.Id == idToUpdate);
-                if (projectToUpdate != null)
-                {
-                    Console.Write("Name: ");
-                    projectToUpdate.Name = Console.ReadLine();
-
-                    Console.Write("Description: ");
-                    projectToUpdate.Description = Console.ReadLine();
-
-                    Console.WriteLine("Project updated.");
-                }
-                else
-                {
-                    Console.WriteLine("Project not found.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid ID format.");
-            }
+            return Projects.FirstOrDefault(p => p.Id == id);
         }
 
-        //Method to list all Projects
-        public void ListAllProjects()
+        public void DeleteProject(Project? project)
         {
-            if (Projects.Any())
+            if (project != null)
             {
-                Console.WriteLine("Project list:");
-                Projects.ForEach(Console.WriteLine);
-            }
-            else
-            {
-                Console.WriteLine("No Projects found.");
+                _projectList.Remove(project);
             }
         }
-
-        //Method to list all ToDos in a specific Project
-        public void ListAllToDosInProject()
-        {
-            Console.Write("Enter Project ID: ");
-            if (int.TryParse(Console.ReadLine(), out var projId))
-            {
-                var projectToList = Projects.FirstOrDefault(p => p.Id == projId);
-                if (projectToList != null)
-                {
-                    if (projectToList.ToDos.Any())
-                    {
-                        Console.WriteLine("ToDos in this Project:");
-                        projectToList.ToDos.ForEach(Console.WriteLine);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No ToDos in this Project.");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Project not found.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid ID format.");
-            }
-        }
-
     }
 }

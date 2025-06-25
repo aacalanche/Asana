@@ -8,6 +8,11 @@ namespace Asana.Library.Models
     //Class representing a Project item in the application
     public class Project
     {
+        public Project()
+        {
+            Id = 0;
+            ToDos = new List<ToDo>();
+        }
         //Attributes of the Project item
         public int Id { get; set; }
         public string? Name { get; set; }
