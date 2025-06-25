@@ -1,9 +1,10 @@
-﻿namespace Asana.Maui;
-
-public partial class AppShell : Shell
+﻿namespace Asana.Maui
 {
-	public AppShell()
-	{
-		InitializeComponent();
-	}
+    public partial class AppShell : Shell
+    {
+        public AppShell()
+        {
+            InitializeComponent();
+        }
+    }
 }

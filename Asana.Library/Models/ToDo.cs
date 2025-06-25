@@ -20,6 +20,7 @@ namespace Asana.Library.Models
         public string? Description { get; set; }
         public bool? IsCompleted { get; set; }
         public int? Priority { get; set; }
+        public DateTime? DueDate { get; set; }
 
         //Override ToString method to print ToDo details
         public override string ToString()

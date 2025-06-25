@@ -1,4 +1,3 @@
-﻿
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -40,18 +39,18 @@
                                         <ColumnDefinition Width="10*"/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <CheckBox IsChecked="{Binding IsCompleted}" Grid.Column="0"/>
+                                    <CheckBox IsChecked="{Binding Model.IsCompleted}" Grid.Column="0"/>
 
                                     <Grid Grid.Column="1">
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <Label TextColor="Red" Grid.Row="0" Text="{Binding Name}"/>
-                                        <Label Grid.Row="1" Text="{Binding Description}"/>
+                                        <Label TextColor="Red" Grid.Row="0" Text="{Binding Model.Name}"/>
+                                        <Label Grid.Row="1" Text="{Binding Model.Description}"/>
                                     </Grid>
 
-                                    <Button Grid.Column="2" Text="Delete"/>
+                                    <Button Grid.Column="2" Text="Delete" Clicked="InLineDeleteClicked" Command="{Binding DeleteCommand}"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

@@ -1,5 +1,4 @@
-
-﻿using Asana.Library.Models;
+using Asana.Library.Models;
 using Asana.Library.Services;
 using System;
 using System.Collections.Generic;
@@ -21,21 +20,22 @@ namespace Asana.Maui.ViewModels
             _toDoSvc = ToDoServiceProxy.Current;
         }
 
-        public ToDo SelectedToDo { get; set; }
-        public ObservableCollection<ToDo> ToDos
+        public ToDoDetailViewModel SelectedToDo { get; set; }
+        public ObservableCollection<ToDoDetailViewModel> ToDos
         {
             get
             {
-                var toDos = _toDoSvc.ToDos;
-                if(!IsShowCompleted)
+                var toDos = _toDoSvc.ToDos
+                        .Select(t => new ToDoDetailViewModel(t));
+                if (!IsShowCompleted)
                 {
-                    toDos = _toDoSvc.ToDos.Where(t => !t?.IsCompleted ?? false).ToList();
+                    toDos = toDos.Where(t => !t?.Model?.IsCompleted ?? false);
                 }
-                return new ObservableCollection<ToDo>(toDos);
+                return new ObservableCollection<ToDoDetailViewModel>(toDos);
             }
         }
 
-        public int SelectedToDoId => SelectedToDo.Id;
+        public int SelectedToDoId => SelectedToDo?.Model?.Id ?? 0;
 
         private bool isShowCompleted;
         public bool IsShowCompleted { 
@@ -61,7 +61,7 @@ namespace Asana.Maui.ViewModels
                 return;
             }
 
-            ToDoServiceProxy.Current.DeleteToDo(SelectedToDo);
+            ToDoServiceProxy.Current.DeleteToDo(SelectedToDo.Model);
             NotifyPropertyChanged(nameof(ToDos));
         }
 
