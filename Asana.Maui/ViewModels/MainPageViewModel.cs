@@ -93,6 +93,7 @@ namespace Asana.Maui.ViewModels
         public void RefreshPage()
         {
             NotifyPropertyChanged(nameof(ToDos));
+            NotifyPropertyChanged(nameof(Projects));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -13,6 +13,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!-- Tool Bar-->
@@ -71,10 +73,54 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <!-- Project List-->
+                <ListView
+                    Grid.Row="2"
+                    ItemsSource="{Binding Projects}"
+                    SelectedItem="{Binding SelectedProject}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10*"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Label TextColor="Red"
+                                               Grid.Row="0"
+                                               Text="{Binding Model.Name}"/>
+                                        <Label Grid.Row="1"
+                                               Text="{Binding Model.Description}"/>
+                                    </Grid>
+                                    <Button Grid.Column="1"
+                                            Text="Edit"
+                                            Clicked="InLineEditClickedProject"
+                                            Command="{Binding EditCommand}"/>
+                                    <Button Grid.Column="2"
+                                            Text="Delete"
+                                            Clicked="InLineDeleteClickedProject"
+                                            Command="{Binding DeleteCommand}"
+                                            BackgroundColor="Black"
+                                            TextColor="Red"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <!-- Button Bar -->
-                <VerticalStackLayout Grid.Row="2">
+                <VerticalStackLayout Grid.Row="3">
                     <Button Text="Add New ToDo"
-                            Clicked="AddNewClicked"/>
+                            Clicked="AddNewClickedToDo"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="4">
+                    <Button Text="Add New Project"
+                            Clicked="AddNewClickedProject"/>
                 </VerticalStackLayout>
             </Grid>
         </VerticalStackLayout>
