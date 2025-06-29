@@ -13,7 +13,7 @@ public partial class ToDoDetailView : ContentPage
 	}
     public int ToDoId { get; set; }
     private void CancelClicked(object sender, EventArgs e)
-    {
+    {        
         Shell.Current.GoToAsync("//MainPage");
     }
 

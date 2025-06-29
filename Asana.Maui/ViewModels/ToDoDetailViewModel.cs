@@ -11,17 +11,22 @@ namespace Asana.Maui.ViewModels
 {
     public class ToDoDetailViewModel
     {
-        public ToDoDetailViewModel() {
+        public ToDoDetailViewModel()
+        {
             Model = new ToDo();
 
             DeleteCommand = new Command(DoDelete);
         }
+
+        private ToDo? _originalToDo;
 
         public ToDoDetailViewModel(int id)
         {
             Model = ToDoServiceProxy.Current.GetById(id) ?? new ToDo();
 
             DeleteCommand = new Command(DoDelete);
+
+            
         }
 
         public ToDoDetailViewModel(ToDo? model)
@@ -30,25 +35,27 @@ namespace Asana.Maui.ViewModels
             DeleteCommand = new Command(DoDelete);
         }
 
-        public void DoDelete() {
+        public void DoDelete()
+        {
             ToDoServiceProxy.Current.DeleteToDo(Model);
         }
 
-        public ToDo? Model { get ; set; }
+        public ToDo? Model { get; set; }
         public ICommand? DeleteCommand { get; set; }
 
-        public List<int> Priorities
+        public List<string> Priorities
         {
             get
             {
-                return new List<int> { 0, 1, 2, 3, 4 };
+                return new List<string> { "None", "Low", "Medium", "High" };
             }
         }
 
-        public int SelectedPriority { 
+        public string SelectedPriority
+        {
             get
             {
-                return Model?.Priority ?? 4;
+                return Model?.Priority ?? "None";
             }
             set
             {
@@ -64,29 +71,42 @@ namespace Asana.Maui.ViewModels
             ToDoServiceProxy.Current.AddOrUpdate(Model);
         }
 
-        //This is option 1 to fix the UX issue with Priority
+
         public string PriorityDisplay
         {
             set
             {
-                if(Model == null)
+                if (Model == null)
                 {
                     return;
                 }
 
-                if (!int.TryParse(value, out int p))
+                if (string.IsNullOrEmpty(value) || value == "None")
                 {
-                    Model.Priority = -9999;
+                    Model.Priority = "None";
                 }
                 else
                 {
-                    Model.Priority = p;
+                    Model.Priority = value;
                 }
             }
 
             get
             {
                 return Model?.Priority?.ToString() ?? string.Empty;
+            }
+        }
+
+        public DateTime DueDate
+        {
+            get => Model?.DueDate ?? DateTime.Today;
+            set
+            {
+                if (Model != null && Model.DueDate != value)
+                {
+                    Model.DueDate = value;
+                    // Raise property changed if needed
+                }
             }
         }
 

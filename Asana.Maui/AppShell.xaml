@@ -6,15 +6,19 @@
     xmlns:local="clr-namespace:Asana.Maui"
     xmlns:views="clr-namespace:Asana.Maui.Views"
     Shell.FlyoutBehavior="Disabled"
-    Title="Asana.Maui">
+    Title="Asana">
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="MainPage"/>
     <ShellContent
         Title="ToDo Details"
         ContentTemplate="{DataTemplate views:ToDoDetailView}"
-        Route="ToDoDetails" />
+        Route="ToDoDetails"/>
+    <ShellContent
+        Title="Project Details"
+        ContentTemplate="{DataTemplate views:ProjectDetailView}"
+        Route="ProjectDetails"/>
 
 </Shell>

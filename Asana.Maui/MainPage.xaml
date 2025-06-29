@@ -21,15 +21,17 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="Show Completed Tasks:"/>
-                    <CheckBox Margin="5" Grid.Column="1" IsChecked="{Binding IsShowCompleted}"/>
+                    <Label Grid.Column="0"
+                           Text="Show Completed Tasks:"/>
+                    <CheckBox Margin="5"
+                              Grid.Column="1"
+                              IsChecked="{Binding IsShowCompleted}"/>
                 </Grid>
                 <!-- ToDo List-->
                 <ListView
-                Grid.Row="1"
-                ItemsSource="{Binding ToDos}"
-                SelectedItem="{Binding SelectedToDo}"
-                >
+                    Grid.Row="1"
+                    ItemsSource="{Binding ToDos}"
+                    SelectedItem="{Binding SelectedToDo}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -38,19 +40,32 @@
                                         <ColumnDefinition/>
                                         <ColumnDefinition Width="10*"/>
                                         <ColumnDefinition/>
+                                        <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <CheckBox IsChecked="{Binding Model.IsCompleted}" Grid.Column="0"/>
+                                    <CheckBox IsChecked="{Binding Model.IsCompleted}"
+                                              Grid.Column="0"/>
 
                                     <Grid Grid.Column="1">
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <Label TextColor="Red" Grid.Row="0" Text="{Binding Model.Name}"/>
-                                        <Label Grid.Row="1" Text="{Binding Model.Description}"/>
+                                        <Label TextColor="Red"
+                                               Grid.Row="0"
+                                               Text="{Binding Model.Name}"/>
+                                        <Label Grid.Row="1"
+                                               Text="{Binding Model.Description}"/>
                                     </Grid>
-
-                                    <Button Grid.Column="2" Text="Delete" Clicked="InLineDeleteClicked" Command="{Binding DeleteCommand}"/>
+                                    <Button Grid.Column="2"
+                                            Text="Edit"
+                                            Clicked="InLineEditClicked"
+                                            Command="{Binding EditCommand}"/>
+                                    <Button Grid.Column="3"
+                                            Text="Delete"
+                                            Clicked="InLineDeleteClicked"
+                                            Command="{Binding DeleteCommand}"
+                                            BackgroundColor="Black"
+                                            TextColor="Red"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
@@ -58,9 +73,8 @@
                 </ListView>
                 <!-- Button Bar -->
                 <VerticalStackLayout Grid.Row="2">
-                    <Button Text="Add New ToDo" Clicked="AddNewClicked"/>
-                    <Button Text="Edit Selected ToDo" Clicked="EditClicked"/>
-                    <Button Text="Delete Selected ToDo" Clicked="DeleteClicked"/>
+                    <Button Text="Add New ToDo"
+                            Clicked="AddNewClicked"/>
                 </VerticalStackLayout>
             </Grid>
         </VerticalStackLayout>

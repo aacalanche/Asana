@@ -14,13 +14,15 @@ namespace Asana.Maui.ViewModels
     public class MainPageViewModel : INotifyPropertyChanged
     {
         private ToDoServiceProxy _toDoSvc;
+        private ProjectServiceProxy _projectSvc;
 
         public MainPageViewModel()
         {
             _toDoSvc = ToDoServiceProxy.Current;
+            _projectSvc = ProjectServiceProxy.Current;
         }
 
-        public ToDoDetailViewModel SelectedToDo { get; set; }
+        public ToDoDetailViewModel? SelectedToDo { get; set; }
         public ObservableCollection<ToDoDetailViewModel> ToDos
         {
             get
@@ -38,7 +40,8 @@ namespace Asana.Maui.ViewModels
         public int SelectedToDoId => SelectedToDo?.Model?.Id ?? 0;
 
         private bool isShowCompleted;
-        public bool IsShowCompleted { 
+        public bool IsShowCompleted
+        {
             get
             {
                 return isShowCompleted;
@@ -63,7 +66,29 @@ namespace Asana.Maui.ViewModels
 
             ToDoServiceProxy.Current.DeleteToDo(SelectedToDo.Model);
             NotifyPropertyChanged(nameof(ToDos));
+        }              
+        
+        public ObservableCollection<ProjectDetailViewModel> Projects
+        {
+            get
+            {
+                return new ObservableCollection<ProjectDetailViewModel>(
+                    _projectSvc.Projects.Select(p => new ProjectDetailViewModel(p)));
+            }
         }
+        public ProjectDetailViewModel? SelectedProject { get; set; }
+        public int SelectedProjectId => SelectedProject?.Model?.Id ?? 0;
+        public void DeleteProject()
+        {
+            if (SelectedProject == null)
+            {
+                return;
+            }
+
+            ProjectServiceProxy.Current.DeleteProject(SelectedProject.Model);
+            NotifyPropertyChanged(nameof(Projects));
+        }
+
 
         public void RefreshPage()
         {
