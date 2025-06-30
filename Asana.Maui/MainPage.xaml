@@ -12,13 +12,18 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="10*"/>
+                    <RowDefinition/>
                     <RowDefinition Height="10*"/>
                     <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="10*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <!-- Tool Bar-->
-                <Grid Grid.Row="0">
+
+                <!-- ToDo Header-->
+                
+                <!-- Show Checked Bar-->
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="5*"/>
@@ -31,7 +36,7 @@
                 </Grid>
                 <!-- ToDo List-->
                 <ListView
-                    Grid.Row="1"
+                    Grid.Row="2"
                     ItemsSource="{Binding ToDos}"
                     SelectedItem="{Binding SelectedToDo}">
                     <ListView.ItemTemplate>
@@ -60,11 +65,11 @@
                                     </Grid>
                                     <Button Grid.Column="2"
                                             Text="Edit"
-                                            Clicked="InLineEditClicked"
+                                            Clicked="InLineEditClickedToDo"
                                             Command="{Binding EditCommand}"/>
                                     <Button Grid.Column="3"
                                             Text="Delete"
-                                            Clicked="InLineDeleteClicked"
+                                            Clicked="InLineDeleteClickedToDo"
                                             Command="{Binding DeleteCommand}"
                                             BackgroundColor="Black"
                                             TextColor="Red"/>
@@ -72,10 +77,18 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
+                </ListView>                
+                <!-- ToDo Button Bar -->
+                <VerticalStackLayout Grid.Row="3">
+                    <Button Text="Add New ToDo"
+                            Clicked="AddNewClickedToDo"/>
+                </VerticalStackLayout>
+
+                <!-- Project Header-->
+
                 <!-- Project List-->
                 <ListView
-                    Grid.Row="2"
+                    Grid.Row="5"
                     ItemsSource="{Binding Projects}"
                     SelectedItem="{Binding SelectedProject}">
                     <ListView.ItemTemplate>
@@ -113,12 +126,8 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <!-- Button Bar -->
-                <VerticalStackLayout Grid.Row="3">
-                    <Button Text="Add New ToDo"
-                            Clicked="AddNewClickedToDo"/>
-                </VerticalStackLayout>
-                <VerticalStackLayout Grid.Row="4">
+                <!-- Project Button Bar -->
+                <VerticalStackLayout Grid.Row="6">
                     <Button Text="Add New Project"
                             Clicked="AddNewClickedProject"/>
                 </VerticalStackLayout>

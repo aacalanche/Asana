@@ -4,7 +4,7 @@ namespace Asana.Maui
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        
         // Constructor for MainPage
         // Initializes the MainPage and sets the BindingContext to MainPageViewModel
         public MainPage()
@@ -56,7 +56,7 @@ namespace Asana.Maui
             (BindingContext as MainPageViewModel)?.RefreshPage();
         }
 
-        private void AddNewProjectClicked(object sender, EventArgs e)
+        private void AddNewClickedProject(object sender, EventArgs e)
         {
             // Navigate to ProjectDetailView when the Add New Project button is clicked
             Shell.Current.GoToAsync("//ProjectDetails");

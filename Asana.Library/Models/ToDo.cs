@@ -1,6 +1,3 @@
-//Arturo Calanche
-//Project: Asana CLI Application
-
 using System;
 
 namespace Asana.Library.Models

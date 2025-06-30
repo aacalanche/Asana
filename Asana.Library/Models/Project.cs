@@ -1,6 +1,3 @@
-//Arturo Calanche
-//Project: Asana CLI Application
-
 using System;
 
 namespace Asana.Library.Models
@@ -11,7 +8,6 @@ namespace Asana.Library.Models
         public Project()
         {
             Id = 0;
-            ToDos = new List<ToDo>();
         }
         //Attributes of the Project item
         public int Id { get; set; }
@@ -19,26 +15,43 @@ namespace Asana.Library.Models
         public string? Description { get; set; }
 
         //Auto calculate the percentage of completed ToDos in the project
-        public int CompletePercent
+        public int? CompletePercent
         {
             get
             {
-                if (ToDos.Any())
+                if (ToDos > 0)
                 {
-                    int completed = ToDos.Count(t => t.IsCompleted == true);
-                    return completed / ToDos.Count * 100;
+                    return CompletedToDos / ToDos * 100;
                 }
                 return 0;
             }
         }
-        public List<ToDo>? ToDos { get; set; }
+        //Find how many ToDos in the ToDos list have their ProjectId == this Project's ID
+        public int? ToDos
+        {
+            get
+            {
+                .Where(t => (t != null) && (t?.ProjectId == Id))
+                                .ToList()
+                                .Count();
+            }
+        }
+        public int? CompletedToDos
+        {
+            get
+            {
+                .Where(t => (t != null) && (t?.IsCompleted) && (t?.ProjectId == Id))
+                                .ToList()
+                                .Count();
+            }
+        }
 
         //Override ToString method to print Project details
         public override string ToString()
         {
             return $"[{Id}] {Name}: {Description}\n" +
-                   $"    ({(ToDos.Any() ?
-                   $"ToDos: {ToDos.Count}, {CompletePercent}% Completed" :
+                   $"    ({(ToDos > 0 ?
+                   $"ToDos: {ToDos}, {CompletePercent}% Completed" :
                    "No ToDos")})";
         }
     }

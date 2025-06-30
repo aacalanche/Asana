@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿//Arturo Calanche
+//Project: Asana MAUI Application
+
+using Microsoft.Extensions.Logging;
 
 namespace Asana.Maui
 {

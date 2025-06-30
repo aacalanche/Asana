@@ -8,6 +8,7 @@
     <VerticalStackLayout
         Padding="30,0"
         Spacing="10">
+        <!-- Name Entry-->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
@@ -20,6 +21,7 @@
             <Entry Text="{Binding Model.Name}"
                    Grid.Column="1"/>
         </Grid>
+        <!-- Priority and Due Date Entry-->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -38,6 +40,7 @@
             <DatePicker Date="{Binding DueDate}"
                     Grid.Column="3"/>
         </Grid>
+        <!-- Description Entry-->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -48,6 +51,9 @@
             <Entry Text="{Binding Model.Description}"
                    Grid.Column="1"/>
         </Grid>
+        <!-- Assign-to-Project Picker-->
+        
+        <!-- Buttons-->
         <Button Text="OK"
                 Clicked="OkClicked"/>
         <Button Text="Cancel"

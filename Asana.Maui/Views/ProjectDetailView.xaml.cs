@@ -1,5 +1,9 @@
+using Asana.Library.Models;
+using Asana.Maui.ViewModels;
+
 namespace Asana.Maui.Views;
 
+[QueryProperty(nameof(ProjectId), "projectId")]
 public partial class ProjectDetailView : ContentPage
 {
 	public ProjectDetailView()
@@ -21,9 +25,7 @@ public partial class ProjectDetailView : ContentPage
 	}
 
 	private void ContentPage_NavigatedFrom(object sender, NavigatedFromEventArgs e)
-	{
-
-	}
+	{}
 
 	private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
 	{

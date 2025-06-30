@@ -1,8 +1,9 @@
-//Arturo Calanche
-//Project: Asana CLI Application
-
-using System;
 using Asana.Library.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Asana.Library.Services
 {
@@ -28,7 +29,10 @@ namespace Asana.Library.Services
 
         private ProjectServiceProxy()
         {
-            Projects = new List<Project>();
+            Projects = new List<Project>
+            {
+                new Project{Id = 1, Name = "Project 1", Description = "My Proj 1"}
+            };
         }
 
         //Auto assign an incrementing ID to each new Project
