@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Asana.Library.Services;
 
 namespace Asana.Library.Models
 {
@@ -14,44 +16,35 @@ namespace Asana.Library.Models
         public string? Name { get; set; }
         public string? Description { get; set; }
 
-        //Auto calculate the percentage of completed ToDos in the project
-        public int? CompletePercent
+        public int ToDos
         {
             get
             {
-                if (ToDos > 0)
-                {
-                    return CompletedToDos / ToDos * 100;
-                }
-                return 0;
-            }
-        }
-        //Find how many ToDos in the ToDos list have their ProjectId == this Project's ID
-        public int? ToDos
-        {
-            get
-            {
-                .Where(t => (t != null) && (t?.ProjectId == Id))
+                //Find how many ToDos in the ToDos list have their ProjectId == this Project's ID
+                return ToDoServiceProxy.Current.ToDos
+                                .Where(t => (t != null) && (t?.ProjId == Id))
                                 .ToList()
                                 .Count();
             }
         }
-        public int? CompletedToDos
+        public int CompletedToDos
         {
             get
             {
-                .Where(t => (t != null) && (t?.IsCompleted) && (t?.ProjectId == Id))
+                //Find how many ToDos in the ToDos list have their ProjectId == this Project's ID and are completed
+                return ToDoServiceProxy.Current.ToDos
+                                .Where(t => (t != null) && (t?.ProjId == Id) && (t?.IsCompleted == true))
                                 .ToList()
                                 .Count();
             }
-        }
+        }        
 
         //Override ToString method to print Project details
         public override string ToString()
         {
             return $"[{Id}] {Name}: {Description}\n" +
                    $"    ({(ToDos > 0 ?
-                   $"ToDos: {ToDos}, {CompletePercent}% Completed" :
+                   $"ToDos: {ToDos}, X% Completed" :
                    "No ToDos")})";
         }
     }

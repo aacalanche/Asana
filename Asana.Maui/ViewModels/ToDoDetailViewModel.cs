@@ -26,7 +26,7 @@ namespace Asana.Maui.ViewModels
 
             DeleteCommand = new Command(DoDelete);
 
-            
+
         }
 
         public ToDoDetailViewModel(ToDo? model)
@@ -48,6 +48,25 @@ namespace Asana.Maui.ViewModels
             get
             {
                 return new List<string> { "None", "Low", "Medium", "High" };
+            }
+        }
+
+        public List<int?> ProjectIds => new List<int?> { null }
+            .Concat(ProjectServiceProxy.Current.Projects.Select(p => (int?)p.Id))
+            .ToList();
+
+        public int? SelectedProjectId
+        {
+            get
+            {
+                return Model?.ProjId ?? null;
+            }
+            set
+            {
+                if (Model != null && Model.ProjId != value)
+                {
+                    Model.ProjId = value;
+                }
             }
         }
 
@@ -108,8 +127,7 @@ namespace Asana.Maui.ViewModels
                     // Raise property changed if needed
                 }
             }
-        }
-
-
+        }       
+        
     }
 }

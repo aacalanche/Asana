@@ -29,10 +29,7 @@ namespace Asana.Library.Services
 
         private ProjectServiceProxy()
         {
-            Projects = new List<Project>
-            {
-                new Project{Id = 1, Name = "Project 1", Description = "My Proj 1"}
-            };
+            Projects = new List<Project>();
         }
 
         //Auto assign an incrementing ID to each new Project
@@ -85,16 +82,11 @@ namespace Asana.Library.Services
         {
             if (isShowCompleted)
             {
-                Projects.SelectMany(p => p.ToDos ?? new List<ToDo>())
-                        .ToList()
-                        .ForEach(Console.WriteLine);
+                Console.WriteLine("Showing all ToDos in all projects:");
             }
             else
             {
-                Projects.SelectMany(p => p.ToDos ?? new List<ToDo>())
-                        .Where(t => (t != null) && !(t?.IsCompleted ?? false))
-                        .ToList()
-                        .ForEach(Console.WriteLine);
+                Console.WriteLine("Showing only active ToDos in all projects:");
             }
         }
 

@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Asana.Maui.Views"
              x:Class="Asana.Maui.Views.ToDoDetailView"
              Title="ToDo Details"
              NavigatedFrom="ContentPage_NavigatedFrom"
              NavigatedTo="ContentPage_NavigatedTo">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <views:NullToNoneConverter x:Key="NullToNoneConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <VerticalStackLayout
         Padding="30,0"
         Spacing="10">
@@ -36,9 +44,9 @@
                     SelectedItem="{Binding SelectedPriority}"
                     Grid.Column="1"/>
             <Label Text="    Due Date: "
-                    Grid.Column="2"/>
+                   Grid.Column="2"/>
             <DatePicker Date="{Binding DueDate}"
-                    Grid.Column="3"/>
+                        Grid.Column="3"/>
         </Grid>
         <!-- Description Entry-->
         <Grid>
@@ -52,12 +60,27 @@
                    Grid.Column="1"/>
         </Grid>
         <!-- Assign-to-Project Picker-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Assign to Project: "
+                   Grid.Column="0"/>
+            <Picker ItemsSource="{Binding ProjectIds}"
+                    SelectedItem="{Binding SelectedProjectId}"
+                    Grid.Column="1">
+                <Picker.ItemDisplayBinding>
+                    <Binding Converter="{StaticResource NullToNoneConverter}"/>
+                </Picker.ItemDisplayBinding>
+            </Picker>
+            </Grid>
+            <!-- Buttons-->
+            <Button Text="OK"
+                    Clicked="OkClicked"/>
+            <Button Text="Cancel"
+                    Clicked="CancelClicked"
+                    BackgroundColor="Gray"/>
         
-        <!-- Buttons-->
-        <Button Text="OK"
-                Clicked="OkClicked"/>
-        <Button Text="Cancel"
-                Clicked="CancelClicked"
-                BackgroundColor="Gray"/>
     </VerticalStackLayout>
 </ContentPage>

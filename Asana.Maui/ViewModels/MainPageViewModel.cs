@@ -38,6 +38,7 @@ namespace Asana.Maui.ViewModels
         }
 
         public int SelectedToDoId => SelectedToDo?.Model?.Id ?? 0;
+        
 
         private bool isShowCompleted;
         public bool IsShowCompleted
