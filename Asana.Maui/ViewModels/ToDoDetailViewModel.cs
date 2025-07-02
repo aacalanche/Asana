@@ -16,9 +16,7 @@ namespace Asana.Maui.ViewModels
             Model = new ToDo();
 
             DeleteCommand = new Command(DoDelete);
-        }
-
-        private ToDo? _originalToDo;
+        }        
 
         public ToDoDetailViewModel(int id)
         {
@@ -90,7 +88,6 @@ namespace Asana.Maui.ViewModels
             ToDoServiceProxy.Current.AddOrUpdate(Model);
         }
 
-
         public string PriorityDisplay
         {
             set
@@ -102,7 +99,7 @@ namespace Asana.Maui.ViewModels
 
                 if (string.IsNullOrEmpty(value) || value == "None")
                 {
-                    Model.Priority = "None";
+                    Model.Priority = null;
                 }
                 else
                 {
@@ -112,7 +109,8 @@ namespace Asana.Maui.ViewModels
 
             get
             {
-                return Model?.Priority?.ToString() ?? string.Empty;
+                return Model?.Priority == null ? "Priority: None"
+                : $"Priority: {Model.Priority}";
             }
         }
 
@@ -127,7 +125,26 @@ namespace Asana.Maui.ViewModels
                     // Raise property changed if needed
                 }
             }
-        }       
-        
+        }
+
+        public string DueDateDisplay
+        {
+            get
+            {
+                return Model?.DueDate == null
+                    ? "No due date set"
+                    : $"Due Date: {Model.DueDate.Value.ToShortDateString()}";
+            }
+        }
+
+        public string ProjIdDisplay
+        {
+            get
+            {
+                return Model?.ProjId == null
+                    ? ""
+                    : $"Project: {Model.ProjId.Value}";
+            }
+        }
     }
 }

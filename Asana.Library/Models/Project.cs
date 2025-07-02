@@ -37,14 +37,23 @@ namespace Asana.Library.Models
                                 .ToList()
                                 .Count();
             }
-        }        
+        }
+
+        public double CompletePercent
+        {
+            get
+            {
+                if (ToDos == 0) return 0;
+                return Math.Round(CompletedToDos / (double)ToDos * 100);
+            }
+        }
 
         //Override ToString method to print Project details
         public override string ToString()
         {
             return $"[{Id}] {Name}: {Description}\n" +
                    $"    ({(ToDos > 0 ?
-                   $"ToDos: {ToDos}, X% Completed" :
+                   $"ToDos: {ToDos}, {CompletePercent}% Completed" :
                    "No ToDos")})";
         }
     }

@@ -22,6 +22,7 @@
 
                 <!-- ToDo Header-->
                 <Label Grid.Row="0"
+                       Margin="0,10,0,10"
                        Text="ToDo List"
                        FontSize="32"
                        HorizontalOptions="Center"
@@ -66,23 +67,25 @@
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        <Label TextColor="Blue"
+                                        <Label TextColor="Yellow"
                                                Grid.Row="0"
                                                Text="{Binding Model.Name}"/>
                                         <Label Grid.Row="1"
                                                Text="{Binding Model.Description}"/>
                                         <Label Grid.Row="2"
-                                               Text="{Binding Model.Priority, StringFormat='Priority: {0}'}"/>
+                                               Text="{Binding PriorityDisplay}"/>
                                         <Label Grid.Row="3"
-                                               Text="{Binding Model.DueDate, StringFormat='Due: {0:d}'}"/>
+                                               Text="{Binding DueDateDisplay}"/>
                                         <Label Grid.Row="4"
-                                               Text="{Binding Model.ProjId, StringFormat='Project: {0}'}"/>
+                                               Text="{Binding ProjIdDisplay}"/>
                                     </Grid>
                                     <Button Grid.Column="2"
+                                            Margin="5,20,5,20"
                                             Text="Edit"
                                             Clicked="InLineEditClickedToDo"
                                             Command="{Binding EditCommand}"/>
                                     <Button Grid.Column="3"
+                                            Margin="5,20,5,20"
                                             Text="Delete"
                                             Clicked="InLineDeleteClickedToDo"
                                             Command="{Binding DeleteCommand}"
@@ -101,6 +104,7 @@
 
                 <!-- Project Header-->
                 <Label Grid.Row="4"
+                       Margin="0,10,0,10"
                        Text="Project List"
                        FontSize="32"
                        HorizontalOptions="Center"
@@ -130,7 +134,6 @@
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
-                                            <RowDefinition/>
                                         </Grid.RowDefinitions>
                                         <Label TextColor="Green"
                                                Grid.Row="0"
@@ -138,15 +141,17 @@
                                         <Label Grid.Row="1"
                                                Text="{Binding Model.Description}"/>
                                         <Label Grid.Row="2"
-                                               Text="{Binding Model.ToDos, StringFormat='{0} ToDos'}"/>
+                                               Text="{Binding ToDosDisplay}"/>
                                         <Label Grid.Row="3"
-                                               Text="{Binding Model.CompletePercent, StringFormat='{0}% Complete'}"/>
+                                               Text="{Binding CompletedPercentDisplay}"/>
                                     </Grid>
                                     <Button Grid.Column="2"
+                                            Margin="5,10,5,10"
                                             Text="Edit"
                                             Clicked="InLineEditClickedProject"
                                             Command="{Binding EditCommand}"/>
                                     <Button Grid.Column="3"
+                                            Margin="5,10,5,10"
                                             Text="Delete"
                                             Clicked="InLineDeleteClickedProject"
                                             Command="{Binding DeleteCommand}"

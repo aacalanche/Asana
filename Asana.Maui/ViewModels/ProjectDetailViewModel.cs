@@ -42,6 +42,24 @@ namespace Asana.Maui.ViewModels
         public void AddOrUpdateProject()
         {
             ProjectServiceProxy.Current.AddOrUpdate(Model);
+        }
+
+        public string ToDosDisplay
+        {
+            get
+            {
+                return Model?.ToDos == 0 || Model?.ToDos == null ?
+                "No ToDos" : $"{Model?.ToDos} ToDos";
+            }
+        }
+
+        public string CompletedPercentDisplay
+        {
+            get
+            {
+                return Model?.ToDos == 0 || Model?.ToDos == null ?
+                "" : $"{Model?.CompletePercent}% Completed";
+            }
         }              
     }
 }

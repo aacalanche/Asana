@@ -22,8 +22,7 @@
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="1.5*"/>
             </Grid.ColumnDefinitions>
-            <!--Label Text="  ID: " Grid.Column="0"/-->
-            <!--Entry Text="{Binding Model.Id}" Grid.Column="1" IsReadOnly="True"/-->
+            
             <Label Text="Name: "
                    Grid.Column="0"/>
             <Entry Text="{Binding Model.Name}"

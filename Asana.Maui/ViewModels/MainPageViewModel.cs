@@ -36,10 +36,8 @@ namespace Asana.Maui.ViewModels
                 return new ObservableCollection<ToDoDetailViewModel>(toDos);
             }
         }
-
-        public int SelectedToDoId => SelectedToDo?.Model?.Id ?? 0;
         
-
+        public int SelectedToDoId => SelectedToDo?.Model?.Id ?? 0;
         private bool isShowCompleted;
         public bool IsShowCompleted
         {
