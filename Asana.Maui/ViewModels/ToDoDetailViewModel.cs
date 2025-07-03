@@ -9,6 +9,7 @@ using System.Windows.Input;
 
 namespace Asana.Maui.ViewModels
 {
+    // ViewModel for managing ToDo details, including adding, updating, and deleting ToDos
     public class ToDoDetailViewModel
     {
         public ToDoDetailViewModel()
@@ -16,7 +17,7 @@ namespace Asana.Maui.ViewModels
             Model = new ToDo();
 
             DeleteCommand = new Command(DoDelete);
-        }        
+        }
 
         public ToDoDetailViewModel(int id)
         {
@@ -33,6 +34,7 @@ namespace Asana.Maui.ViewModels
             DeleteCommand = new Command(DoDelete);
         }
 
+        // Method to delete the current ToDo model using the ToDoServiceProxy
         public void DoDelete()
         {
             ToDoServiceProxy.Current.DeleteToDo(Model);
@@ -41,6 +43,7 @@ namespace Asana.Maui.ViewModels
         public ToDo? Model { get; set; }
         public ICommand? DeleteCommand { get; set; }
 
+        // Manages Priority picker options for the ToDo
         public List<string> Priorities
         {
             get
@@ -49,6 +52,7 @@ namespace Asana.Maui.ViewModels
             }
         }
 
+        // Methods to maanage Project ID picker options for the ToDo
         public List<int?> ProjectIds => new List<int?> { null }
             .Concat(ProjectServiceProxy.Current.Projects.Select(p => (int?)p.Id))
             .ToList();
@@ -68,6 +72,16 @@ namespace Asana.Maui.ViewModels
             }
         }
 
+        public string ProjIdDisplay
+        {
+            get
+            {
+                return Model?.ProjId == null
+                    ? ""
+                    : $"Project: {Model.ProjId.Value}";
+            }
+        }
+
         public string SelectedPriority
         {
             get
@@ -83,11 +97,13 @@ namespace Asana.Maui.ViewModels
             }
         }
 
+        // Method to add or update the current ToDo model using the ToDoServiceProxy
         public void AddOrUpdateToDo()
         {
             ToDoServiceProxy.Current.AddOrUpdate(Model);
         }
 
+        // Methods to get display strings for ToDo details for the UI
         public string PriorityDisplay
         {
             set
@@ -109,11 +125,13 @@ namespace Asana.Maui.ViewModels
 
             get
             {
-                return Model?.Priority == null ? "Priority: None"
+                return Model?.Priority == null ||
+                Model?.Priority == "None" ? "Priority: None"
                 : $"Priority: {Model.Priority}";
             }
         }
 
+        // Manage the DueDate displayed for the ToDo, defaulting to today's date if not set
         public DateTime DueDate
         {
             get => Model?.DueDate ?? DateTime.Today;
@@ -122,7 +140,6 @@ namespace Asana.Maui.ViewModels
                 if (Model != null && Model.DueDate != value)
                 {
                     Model.DueDate = value;
-                    // Raise property changed if needed
                 }
             }
         }
@@ -132,18 +149,8 @@ namespace Asana.Maui.ViewModels
             get
             {
                 return Model?.DueDate == null
-                    ? "No due date set"
+                    ? $"Due Date: {DateTime.Today.ToShortDateString()}"
                     : $"Due Date: {Model.DueDate.Value.ToShortDateString()}";
-            }
-        }
-
-        public string ProjIdDisplay
-        {
-            get
-            {
-                return Model?.ProjId == null
-                    ? ""
-                    : $"Project: {Model.ProjId.Value}";
             }
         }
     }

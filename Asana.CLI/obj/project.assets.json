@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/Asana/Asana.CLI/Asana.CLI.csproj",
+      "projectUniqueName": "/Users/Aacro/Projects/Asana/Asana.CLI/Asana.CLI.csproj",
       "projectName": "Asana.CLI",
-      "projectPath": "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/Asana/Asana.CLI/Asana.CLI.csproj",
+      "projectPath": "/Users/Aacro/Projects/Asana/Asana.CLI/Asana.CLI.csproj",
       "packagesPath": "/Users/Aacro/.nuget/packages/",
-      "outputPath": "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/Asana/Asana.CLI/obj/",
+      "outputPath": "/Users/Aacro/Projects/Asana/Asana.CLI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/Aacro/.nuget/NuGet/NuGet.Config"
@@ -52,8 +52,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/Asana/Asana.Library/Asana.Library.csproj": {
-              "projectPath": "/Users/Aacro/Library/CloudStorage/OneDrive-FloridaStateUniversity/C# Programming/Asana/Asana.Library/Asana.Library.csproj"
+            "/Users/Aacro/Projects/Asana/Asana.Library/Asana.Library.csproj": {
+              "projectPath": "/Users/Aacro/Projects/Asana/Asana.Library/Asana.Library.csproj"
             }
           }
         }
@@ -89,7 +89,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

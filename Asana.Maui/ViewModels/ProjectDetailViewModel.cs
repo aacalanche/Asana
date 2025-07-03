@@ -11,13 +11,12 @@ namespace Asana.Maui.ViewModels
 {
     public class ProjectDetailViewModel
     {
+        // ViewModel for managing project details, including adding, updating, and deleting projects
         public ProjectDetailViewModel()
         {
             Model = new Project();
             DeleteCommand = new Command(DoDelete);
         }
-
-        private Project? _originalProject;
 
         public ProjectDetailViewModel(int id)
         {
@@ -30,7 +29,7 @@ namespace Asana.Maui.ViewModels
             Model = model ?? new Project();
             DeleteCommand = new Command(DoDelete);
         }
-
+        // Method to delete the current project model using the ProjectServiceProxy
         public void DoDelete()
         {
             ProjectServiceProxy.Current.DeleteProject(Model);
@@ -39,11 +38,13 @@ namespace Asana.Maui.ViewModels
         public Project? Model { get; set; }
         public ICommand? DeleteCommand { get; set; }
 
+        // Method to add or update the current project model using the ProjectServiceProxy
         public void AddOrUpdateProject()
         {
             ProjectServiceProxy.Current.AddOrUpdate(Model);
         }
 
+        // Methods to get display strings for project details for the UI
         public string ToDosDisplay
         {
             get

@@ -13,6 +13,7 @@ namespace Asana.Maui.ViewModels
 {
     public class MainPageViewModel : INotifyPropertyChanged
     {
+        // Uses ToDoServiceProxy and ProjectServiceProxy to access data
         private ToDoServiceProxy _toDoSvc;
         private ProjectServiceProxy _projectSvc;
 
@@ -22,6 +23,7 @@ namespace Asana.Maui.ViewModels
             _projectSvc = ProjectServiceProxy.Current;
         }
 
+        // Properties for managing ToDos
         public ToDoDetailViewModel? SelectedToDo { get; set; }
         public ObservableCollection<ToDoDetailViewModel> ToDos
         {
@@ -37,7 +39,10 @@ namespace Asana.Maui.ViewModels
             }
         }
         
+        // Returns the ID of the selected ToDo, or 0 if no ToDo is selected
         public int SelectedToDoId => SelectedToDo?.Model?.Id ?? 0;
+
+        // Property to toggle the visibility of completed ToDos
         private bool isShowCompleted;
         public bool IsShowCompleted
         {
@@ -56,6 +61,7 @@ namespace Asana.Maui.ViewModels
             }
         }
 
+        // Deletes the selected ToDo item
         public void DeleteToDo()
         {
             if (SelectedToDo == null)
@@ -67,6 +73,7 @@ namespace Asana.Maui.ViewModels
             NotifyPropertyChanged(nameof(ToDos));
         }              
         
+        // Properties for managing Projects
         public ObservableCollection<ProjectDetailViewModel> Projects
         {
             get
@@ -88,7 +95,7 @@ namespace Asana.Maui.ViewModels
             NotifyPropertyChanged(nameof(Projects));
         }
 
-
+        // Refreshes the page by notifying property changes for ToDos and Projects
         public void RefreshPage()
         {
             NotifyPropertyChanged(nameof(ToDos));

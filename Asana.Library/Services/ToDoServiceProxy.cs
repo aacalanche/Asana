@@ -7,35 +7,41 @@ using System.Threading.Tasks;
 
 namespace Asana.Library.Services
 {
+    // Class to encapsulate basic ToDo methods
     public class ToDoServiceProxy
     {
         private List<ToDo> _toDoList;
-        public List<ToDo> ToDos { 
+        public List<ToDo> ToDos
+        {
             get
             {
+                // Return only the first 100 ToDos for performance
                 return _toDoList.Take(100).ToList();
             }
 
-            private set {
+            private set
+            {
                 if (value != _toDoList)
                 {
                     _toDoList = value;
                 }
             }
         }
-
+        // Singleton pattern to ensure only one instance of ToDoServiceProxy exists
         private ToDoServiceProxy()
         {
-            ToDos = new List<ToDo>();            
+            ToDos = new List<ToDo>();
         }
+
 
         private static ToDoServiceProxy? instance;
 
+        // Auto assign an incrementing ID to each new ToDo
         private int nextKey
         {
             get
             {
-                if(ToDos.Any())
+                if (ToDos.Any())
                 {
                     return ToDos.Select(t => t.Id).Max() + 1;
                 }
@@ -47,7 +53,7 @@ namespace Asana.Library.Services
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                 {
                     instance = new ToDoServiceProxy();
                 }
@@ -55,9 +61,11 @@ namespace Asana.Library.Services
                 return instance;
             }
         }
+
+        // Method to add or update a ToDo item
         public ToDo? AddOrUpdate(ToDo? toDo)
         {
-            if(toDo != null && toDo.Id == 0)
+            if (toDo != null && toDo.Id == 0)
             {
                 toDo.Id = nextKey;
                 _toDoList.Add(toDo);
@@ -66,25 +74,13 @@ namespace Asana.Library.Services
             return toDo;
         }
 
-        public void DisplayToDos(bool isShowCompleted = false)
-        {
-            if (isShowCompleted)
-            {
-                ToDos.ForEach(Console.WriteLine);
-            }
-            else
-            {
-                ToDos.Where(t => (t != null) && !(t?.IsCompleted ?? false))
-                                .ToList()
-                                .ForEach(Console.WriteLine);
-            }
-        }
-
+        // Method to get a ToDo item by its ID
         public ToDo? GetById(int id)
         {
             return ToDos.FirstOrDefault(t => t.Id == id);
         }
 
+        // Method to delete a ToDo item
         public void DeleteToDo(ToDo? toDo)
         {
             if (toDo == null)

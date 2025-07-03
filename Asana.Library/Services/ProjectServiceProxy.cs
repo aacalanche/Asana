@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Library.Services
 {
-    //Class to encapsulate Project methods
+    //Class to encapsulate basic Project methods
     public class ProjectServiceProxy
     {
         private List<Project> _projectList;
@@ -72,29 +72,13 @@ namespace Asana.Library.Services
             return project;
         }
 
-        //Method to delete a Project by ID
-        public void DisplayProjects()
-        {
-            Projects.ForEach(Console.WriteLine);
-        }
-
-        public void DisplayToDosInProject(bool isShowCompleted = false)
-        {
-            if (isShowCompleted)
-            {
-                Console.WriteLine("Showing all ToDos in all projects:");
-            }
-            else
-            {
-                Console.WriteLine("Showing only active ToDos in all projects:");
-            }
-        }
-
+        // Method to get a Project by its ID
         public Project? GetById(int id)
         {
             return Projects.FirstOrDefault(p => p.Id == id);
         }
 
+        // Method to delete a Project
         public void DeleteProject(Project? project)
         {
             if (project != null)

@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using Microsoft.Maui.Controls;
 
-// Converts null values to "None" for display purposes in MAUI.
+// Converts null values to "None" for Pickers.
 namespace Asana.Maui.Views
 {
 
