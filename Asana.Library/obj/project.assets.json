@@ -1,8 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {},
-    "net9.0/maccatalyst-arm64": {}
+    "net9.0": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
@@ -68,11 +67,6 @@
           }
         },
         "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.301/PortableRuntimeIdentifierGraph.json"
-      }
-    },
-    "runtimes": {
-      "maccatalyst-arm64": {
-        "#import": []
       }
     }
   }
