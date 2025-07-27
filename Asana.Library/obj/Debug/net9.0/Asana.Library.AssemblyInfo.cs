@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Asana.Library")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d0580d11eaec65416c1d3e495a029d94a9f7f89")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd5bf332459dbe8f7b9320f8e3b2d6b609c3e915")]
 [assembly: System.Reflection.AssemblyProductAttribute("Asana.Library")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Asana.Library")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
