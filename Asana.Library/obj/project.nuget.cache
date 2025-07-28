@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Seyz2HntGpA=",
+  "dgSpecHash": "z4DRqyEK4PE=",
   "success": true,
   "projectFilePath": "/Users/Aacro/Projects/Asana/Asana.Library/Asana.Library.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/Aacro/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

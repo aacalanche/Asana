@@ -9,15 +9,11 @@ namespace Asana.API.Controllers
     public class ProjectController : ControllerBase
     {
         [HttpGet]
-        public IEnumerable<Project>? Get() {
-            return new ProjectEC().Get();
+        public IEnumerable<Project>? Get()
+        {
+            return new ProjectEC().GetProjects();
         }
 
-        [HttpGet("Expand")]
-        public IEnumerable<Project>? GetExpand()
-        {
-            return new ProjectEC().Get(true);
-        }
         [HttpGet("{id}")]
         public Project? GetById(int id)
         {

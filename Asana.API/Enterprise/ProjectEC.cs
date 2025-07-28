@@ -5,25 +5,19 @@ namespace Asana.API.Enterprise
 {
     public class ProjectEC
     {
-        public IEnumerable<Project>? Get(bool Expand = false)
+        public IEnumerable<Project> GetProjects()
         {
-            //return FakeDatabase.Current.Projects.Take(100);
-            return FakeDatabase.Current.GetProjects(Expand)?.Take(100);
+            return ProjectFilebase.Current.Projects.Take(100);
         }
 
         public Project? GetById(int id)
         {
-            return FakeDatabase.Current.GetProjects(true)?.FirstOrDefault(p => p.Id == id);
+            return GetProjects().FirstOrDefault(p => p.Id == id);
         }
 
         public Project? AddOrUpdate(Project? project)
         {
-            if(project == null)
-            {
-                return project;
-            }
-
-            FakeDatabase.Current.AddOrUpdateProject(project);
+            ProjectFilebase.Current.AddOrUpdate(project);
             return project;
         }
 
@@ -32,7 +26,7 @@ namespace Asana.API.Enterprise
             var projectToDelete = GetById(id);
             if (projectToDelete != null)
             {
-                FakeDatabase.Current.DeleteProject(projectToDelete);
+                ProjectFilebase.Current.Delete(projectToDelete.Id);
             }
             return projectToDelete;
         }

@@ -1,6 +1,4 @@
-﻿
-﻿using Api.ToDoApplication.Persistence;
-using Asana.API.Database;
+﻿using Asana.API.Database;
 using Asana.Library.Models;
 
 namespace Asana.API.Enterprise
@@ -11,9 +9,9 @@ namespace Asana.API.Enterprise
             
         }
 
-        public IEnumerable<ToDo> GetToDos()
+        public IEnumerable<ToDo>GetToDos()
         {
-            return Filebase.Current.ToDos.Take(100);
+            return ToDoFilebase.Current.ToDos.Take(100);
         }
 
         public ToDo? GetById(int id)
@@ -26,14 +24,14 @@ namespace Asana.API.Enterprise
             var toDoToDelete = GetById(id);
             if (toDoToDelete != null)
             {
-                Filebase.Current.Delete(toDoToDelete.Id);
+                ToDoFilebase.Current.Delete(toDoToDelete.Id);
             }
             return toDoToDelete;
         }
 
         public ToDo? AddOrUpdate(ToDo? toDo)
         {
-            Filebase.Current.AddOrUpdate(toDo);
+            ToDoFilebase.Current.AddOrUpdate(toDo);
             return toDo;
         }
     }

@@ -6,63 +6,60 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api.ToDoApplication.Persistence
+namespace Asana.API.Database
 {
-    public class Filebase
+    public class ProjectFilebase
     {
         private string _root;
-        private string _toDoRoot;
-        private static Filebase _instance;
+        private string _projectRoot;
+        private static ProjectFilebase _instance;
 
-
-        public static Filebase Current
+        public static ProjectFilebase Current
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new Filebase();
+                    _instance = new ProjectFilebase();
                 }
 
                 return _instance;
             }
         }
 
-        private Filebase()
+        private ProjectFilebase()
         {
             // Use a cross-platform location in the user's home directory
             _root = Path.Combine(Environment.GetFolderPath
             (Environment.SpecialFolder.ApplicationData), "Asana");
-            _toDoRoot = Path.Combine(_root, "ToDo");
+            _projectRoot = Path.Combine(_root, "Projects");
 
             // Ensure the directory exists
-            Directory.CreateDirectory(_toDoRoot);
+            Directory.CreateDirectory(_projectRoot);
         }
 
         public int LastKey
         {
             get
             {
-                if (ToDos.Any())
+                if (Projects.Any())
                 {
-                    return ToDos.Select(x => x.Id).Max();
+                    return Projects.Select(x => x.Id).Max();
                 }
                 return 0;
             }
         }
 
-        public ToDo AddOrUpdate(ToDo toDo)
+        public Project AddOrUpdate(Project project)
         {
             //set up a new Id if one doesn't already exist
-            if (toDo.Id <= 0)
+            if (project.Id <= 0)
             {
-                toDo.Id = LastKey + 1;
+                project.Id = LastKey + 1;
             }
 
             //go to the right place            
-            string path = Path.Combine(_toDoRoot, $"{toDo.Id}.json");
-
-
+            string path = Path.Combine(_projectRoot, $"{project.Id}.json");
 
             //if the item has been previously persisted
             if (File.Exists(path))
@@ -72,37 +69,36 @@ namespace Api.ToDoApplication.Persistence
             }
 
             //write the file
-            File.WriteAllText(path, JsonConvert.SerializeObject(toDo));
+            File.WriteAllText(path, JsonConvert.SerializeObject(project));
 
             //return the item, which now has an id
-            return toDo;
-        }
+            return project;
+        }        
 
-        public List<ToDo> ToDos
+        public List<Project> Projects
         {
             get
             {
-                var root = new DirectoryInfo(_toDoRoot);
-                var _toDos = new List<ToDo>();
-                foreach (var patientFile in root.GetFiles())
+                var root = new DirectoryInfo(_projectRoot);
+                var _projects = new List<Project>();
+                foreach (var file in root.GetFiles())
                 {
-                    var toDo = JsonConvert
-                        .DeserializeObject<ToDo>
-                        (File.ReadAllText(patientFile.FullName));
-                    if (toDo != null)
+                    var project = JsonConvert
+                        .DeserializeObject<Project>
+                        (File.ReadAllText(file.FullName));
+                    if (project != null)
                     {
-                        _toDos.Add(toDo);
+                        _projects.Add(project);
                     }
 
                 }
-                return _toDos;
+                return _projects;
             }
         }
 
-
         public bool Delete(int id)
         {
-            string path = Path.Combine(_toDoRoot, $"{id}.json");
+            string path = Path.Combine(_projectRoot, $"{id}.json");
             if (File.Exists(path))
             {
                 File.Delete(path);
@@ -111,7 +107,4 @@ namespace Api.ToDoApplication.Persistence
             return false;
         }
     }
-
-
-
 }
