@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json;
 using System.Linq;
 using Asana.Library.Services;
 
@@ -16,6 +17,8 @@ namespace Asana.Library.Models
         public string? Name { get; set; }
         public string? Description { get; set; }
 
+        [JsonIgnore] // Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonIgnore] // System.Text.Json
         public int ToDos
         {
             get
@@ -27,6 +30,9 @@ namespace Asana.Library.Models
                                 .Count();
             }
         }
+
+        [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public int CompletedToDos
         {
             get
@@ -39,6 +45,8 @@ namespace Asana.Library.Models
             }
         }
 
+        [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public double CompletePercent
         {
             get
@@ -46,15 +54,6 @@ namespace Asana.Library.Models
                 if (ToDos == 0) return 0;
                 return Math.Round(CompletedToDos / (double)ToDos * 100);
             }
-        }
-
-        //Override ToString method to print Project details
-        public override string ToString()
-        {
-            return $"[{Id}] {Name}: {Description}\n" +
-                   $"    ({(ToDos > 0 ?
-                   $"ToDos: {ToDos}, {CompletePercent}% Completed" :
-                   "No ToDos")})";
         }
     }
 }

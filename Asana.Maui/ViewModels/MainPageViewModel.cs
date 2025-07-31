@@ -69,7 +69,7 @@ namespace Asana.Maui.ViewModels
                 return;
             }
 
-            ToDoServiceProxy.Current.DeleteToDo(SelectedToDo.Model);
+            ToDoServiceProxy.Current.DeleteToDo(SelectedToDoId);
             NotifyPropertyChanged(nameof(ToDos));
         }              
         
@@ -91,7 +91,7 @@ namespace Asana.Maui.ViewModels
                 return;
             }
 
-            ProjectServiceProxy.Current.DeleteProject(SelectedProject.Model);
+            ProjectServiceProxy.Current.DeleteProject(SelectedProjectId);
             NotifyPropertyChanged(nameof(Projects));
         }
 

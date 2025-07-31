@@ -1,9 +1,11 @@
 ﻿using Foundation;
+using Microsoft.Maui;
 
-namespace Asana.Maui;
-
-[Register("AppDelegate")]
-public class AppDelegate : MauiUIApplicationDelegate
+namespace Asana.Maui
 {
-	protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+	[Register("AppDelegate")]
+	public class AppDelegate : MauiUIApplicationDelegate
+	{
+		protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+	}
 }

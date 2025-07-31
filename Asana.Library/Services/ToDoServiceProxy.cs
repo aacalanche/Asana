@@ -1,4 +1,6 @@
 using Asana.Library.Models;
+using Asana.Maui.Util;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +17,7 @@ namespace Asana.Library.Services
         {
             get
             {
-                // Return only the first 100 ToDos for performance
-                return _toDoList.Take(100).ToList();
+                return _toDoList.ToList();
             }
 
             private set
@@ -30,24 +31,22 @@ namespace Asana.Library.Services
         // Singleton pattern to ensure only one instance of ToDoServiceProxy exists
         private ToDoServiceProxy()
         {
-            ToDos = new List<ToDo>();
-        }
-
-
-        private static ToDoServiceProxy? instance;
-
-        // Auto assign an incrementing ID to each new ToDo
-        private int nextKey
-        {
-            get
+            try
             {
-                if (ToDos.Any())
-                {
-                    return ToDos.Select(t => t.Id).Max() + 1;
-                }
-                return 1;
+                var todoData = new WebRequestHandler().Get("/ToDo").Result;
+                if (!string.IsNullOrEmpty(todoData))
+                    ToDos = JsonConvert.DeserializeObject<List<ToDo>>(todoData) ?? new List<ToDo>();
+                else
+                    ToDos = new List<ToDo>();
+            }
+            catch
+            {
+                ToDos = new List<ToDo>();
             }
         }
+
+
+        private static ToDoServiceProxy? instance;        
 
         public static ToDoServiceProxy Current
         {
@@ -65,10 +64,38 @@ namespace Asana.Library.Services
         // Method to add or update a ToDo item
         public ToDo? AddOrUpdate(ToDo? toDo)
         {
-            if (toDo != null && toDo.Id == 0)
+            if (toDo == null)
             {
-                toDo.Id = nextKey;
-                _toDoList.Add(toDo);
+                return toDo;
+            }
+            var isNewToDo = toDo.Id == 0;
+            string? todoData = null;
+            try
+            {
+                todoData = new WebRequestHandler().Post("/ToDo", toDo).Result;
+            }
+            catch
+            {
+                // Optionally log the error
+            }
+            var newToDo = !string.IsNullOrEmpty(todoData) ? JsonConvert.DeserializeObject<ToDo>(todoData) : null;
+
+            if (newToDo != null)
+            {
+                if (!isNewToDo)
+                {
+                    var existingToDo = _toDoList.FirstOrDefault(t => t.Id == newToDo.Id);
+                    if (existingToDo != null)
+                    {
+                        var index = _toDoList.IndexOf(existingToDo);
+                        _toDoList.RemoveAt(index);
+                        _toDoList.Insert(index, newToDo);
+                    }
+                }
+                else
+                {
+                    _toDoList.Add(newToDo);
+                }
             }
 
             return toDo;
@@ -81,13 +108,30 @@ namespace Asana.Library.Services
         }
 
         // Method to delete a ToDo item
-        public void DeleteToDo(ToDo? toDo)
+        public void DeleteToDo(int id)
         {
-            if (toDo == null)
+            if (id == 0)
             {
                 return;
             }
-            _toDoList.Remove(toDo);
+            string? todoData = null;
+            try
+            {
+                todoData = new WebRequestHandler().Delete($"/ToDo/{id}").Result;
+            }
+            catch
+            {
+                // Optionally log the error
+            }
+            var toDoToDelete = !string.IsNullOrEmpty(todoData) ? JsonConvert.DeserializeObject<ToDo>(todoData) : null;
+            if (toDoToDelete != null)
+            {
+                var localToDo = _toDoList.FirstOrDefault(t => t.Id == toDoToDelete.Id);
+                if (localToDo != null)
+                {
+                    _toDoList.Remove(localToDo);
+                }
+            }
         }
 
     }

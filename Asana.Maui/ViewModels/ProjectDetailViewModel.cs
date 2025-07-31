@@ -32,7 +32,10 @@ namespace Asana.Maui.ViewModels
         // Method to delete the current project model using the ProjectServiceProxy
         public void DoDelete()
         {
-            ProjectServiceProxy.Current.DeleteProject(Model);
+            if (Model != null)
+            {
+                ProjectServiceProxy.Current.DeleteProject(Model.Id);
+            }
         }
 
         public Project? Model { get; set; }

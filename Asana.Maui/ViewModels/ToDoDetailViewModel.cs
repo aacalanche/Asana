@@ -37,7 +37,7 @@ namespace Asana.Maui.ViewModels
         // Method to delete the current ToDo model using the ToDoServiceProxy
         public void DoDelete()
         {
-            ToDoServiceProxy.Current.DeleteToDo(Model);
+            ToDoServiceProxy.Current.DeleteToDo(Model.Id);
         }
 
         public ToDo? Model { get; set; }

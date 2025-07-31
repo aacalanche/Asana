@@ -1,4 +1,6 @@
 using Asana.Library.Models;
+using Asana.Maui.Util;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Asana.Library.Services
 {
-    //Class to encapsulate basic Project methods
+    // Class to encapsulate basic Project methods
     public class ProjectServiceProxy
     {
         private List<Project> _projectList;
@@ -15,8 +17,7 @@ namespace Asana.Library.Services
         {
             get
             {
-                //Return only the first 100 projects for performance
-                return _projectList.Take(100).ToList();
+                return _projectList.ToList();
             }
             private set
             {
@@ -27,27 +28,25 @@ namespace Asana.Library.Services
             }
         }
 
+        // Singleton pattern to ensure only one instance of ProjectServiceProxy exists
         private ProjectServiceProxy()
         {
-            Projects = new List<Project>();
-        }
-
-        //Auto assign an incrementing ID to each new Project
-        private int nextKey
-        {
-            get
+            try
             {
-                if (Projects.Any())
-                {
-                    return Projects.Select(t => t.Id).Max() + 1;
-                }
-                return 1;
+                var projectData = new WebRequestHandler().Get("/Project").Result;
+                if (!string.IsNullOrEmpty(projectData))
+                    Projects = JsonConvert.DeserializeObject<List<Project>>(projectData) ?? new List<Project>();
+                else
+                    Projects = new List<Project>();
+            }
+            catch
+            {
+                Projects = new List<Project>();
             }
         }
 
         private static ProjectServiceProxy? instance;
 
-        //Singleton pattern to ensure only one instance of ProjectServiceProxy exists
         public static ProjectServiceProxy Current
         {
             get
@@ -60,30 +59,76 @@ namespace Asana.Library.Services
             }
         }
 
-        //Method to create or update a Project
+        // Method to add or update a Project item
         public Project? AddOrUpdate(Project? project)
         {
-            if (project != null && project.Id == 0)
+            if (project == null)
             {
-                project.Id = nextKey;
-                _projectList.Add(project);
+                return project;
+            }
+            var isNewProject = project.Id == 0;
+            string? projectData = null;
+            try
+            {
+                projectData = new WebRequestHandler().Post("/Project", project).Result;
+            }
+            catch
+            {
+                // Optionally log the error
+            }
+            var newProject = !string.IsNullOrEmpty(projectData) ? JsonConvert.DeserializeObject<Project>(projectData) : null;
+
+            if (newProject != null)
+            {
+                if (!isNewProject)
+                {
+                    var existingProject = _projectList.FirstOrDefault(p => p.Id == newProject.Id);
+                    if (existingProject != null)
+                    {
+                        var index = _projectList.IndexOf(existingProject);
+                        _projectList.RemoveAt(index);
+                        _projectList.Insert(index, newProject);
+                    }
+                }
+                else
+                {
+                    _projectList.Add(newProject);
+                }
             }
 
             return project;
         }
 
-        // Method to get a Project by its ID
+        // Method to get a Project item by its ID
         public Project? GetById(int id)
         {
             return Projects.FirstOrDefault(p => p.Id == id);
         }
 
-        // Method to delete a Project
-        public void DeleteProject(Project? project)
+        // Method to delete a Project item
+        public void DeleteProject(int id)
         {
-            if (project != null)
+            if (id == 0)
             {
-                _projectList.Remove(project);
+                return;
+            }
+            string? projectData = null;
+            try
+            {
+                projectData = new WebRequestHandler().Delete($"/Project/{id}").Result;
+            }
+            catch
+            {
+                // Optionally log the error
+            }
+            var projectToDelete = !string.IsNullOrEmpty(projectData) ? JsonConvert.DeserializeObject<Project>(projectData) : null;
+            if (projectToDelete != null)
+            {
+                var localProject = _projectList.FirstOrDefault(p => p.Id == projectToDelete.Id);
+                if (localProject != null)
+                {
+                    _projectList.Remove(localProject);
+                }
             }
         }
     }
