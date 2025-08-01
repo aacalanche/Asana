@@ -35,7 +35,8 @@ namespace Asana.Library.Services
             {
                 var todoData = new WebRequestHandler().Get("/ToDo").Result;
                 if (!string.IsNullOrEmpty(todoData))
-                    ToDos = JsonConvert.DeserializeObject<List<ToDo>>(todoData) ?? new List<ToDo>();
+                    ToDos = JsonConvert.DeserializeObject<List<ToDo>>(todoData) ??
+                    new List<ToDo>();
                 else
                     ToDos = new List<ToDo>();
             }
@@ -46,7 +47,7 @@ namespace Asana.Library.Services
         }
 
 
-        private static ToDoServiceProxy? instance;        
+        private static ToDoServiceProxy? instance;
 
         public static ToDoServiceProxy Current
         {
@@ -78,7 +79,8 @@ namespace Asana.Library.Services
             {
                 // Optionally log the error
             }
-            var newToDo = !string.IsNullOrEmpty(todoData) ? JsonConvert.DeserializeObject<ToDo>(todoData) : null;
+            var newToDo = !string.IsNullOrEmpty(todoData) ?
+            JsonConvert.DeserializeObject<ToDo>(todoData) : null;
 
             if (newToDo != null)
             {

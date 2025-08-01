@@ -1,4 +1,10 @@
 using System;
+using Asana.Library.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Asana.Library.Models
 {
@@ -10,6 +16,15 @@ namespace Asana.Library.Models
             Id = 0;
             IsCompleted = false;
         }
+        //Constructor to create a ToDo from a ToDoDTO
+        public ToDo(ToDoDTO dto)
+        {
+            Id = dto.Id;
+            IsCompleted = dto.IsCompleted;
+            Name = dto.Name;
+            Priority = dto.Priority;
+            Description = dto.Description;
+        }
         //Attributes of the ToDo item
         public int Id { get; set; }
         public int? ProjId { get; set; }
@@ -18,14 +33,6 @@ namespace Asana.Library.Models
         public bool? IsCompleted { get; set; }
         public string? Priority { get; set; }
         
-        public DateTime? DueDate { get; set; }
-
-        //Override ToString method to print ToDo details
-        public override string ToString()
-        {
-            return $"[{Id}] {Name}: {Description}\n" +
-                   $"    (Priority: {Priority}, Completed: {IsCompleted}" +
-                   $"{(ProjId.HasValue ? $", Project ID: {ProjId.Value}" : "")})";
-        }
+        public DateTime? DueDate { get; set; }        
     }
 }

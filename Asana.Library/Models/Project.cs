@@ -2,6 +2,10 @@ using System;
 using Newtonsoft.Json;
 using System.Linq;
 using Asana.Library.Services;
+using Asana.Library.DTOs;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Asana.Library.Models
 {
@@ -12,13 +16,25 @@ namespace Asana.Library.Models
         {
             Id = 0;
         }
+
+        //Constructor to create a Project from a ProjectDTO
+        public Project(ProjectDTO dto)
+        {
+            Id = dto.Id;
+            Name = dto.Name;
+            Description = dto.Description;
+
+        }
+
         //Attributes of the Project item
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
 
-        [JsonIgnore] // Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonIgnore] // System.Text.Json
+        //ToDos, CompletedToDos, and CompletePercent 
+        //are calculated properties, not set directly
+        [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public int ToDos
         {
             get
@@ -51,6 +67,7 @@ namespace Asana.Library.Models
         {
             get
             {
+                //Calculate the percentage of completed ToDos
                 if (ToDos == 0) return 0;
                 return Math.Round(CompletedToDos / (double)ToDos * 100);
             }
